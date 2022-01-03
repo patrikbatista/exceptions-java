@@ -1,13 +1,17 @@
 package model.entites;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+
+import javax.lang.model.util.SimpleAnnotationValueVisitor14;
 
 public class Reservation {
 
 	private Integer roomNumber;
 	private Date checkin, checkout;
 	
+	private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // cria a variavel para formatar a data	
 	public Reservation(Integer roomNumber, Date checkin, Date checkout) {
 		this.roomNumber = roomNumber;
 		this.checkin = checkin;
@@ -46,6 +50,20 @@ public class Reservation {
 	public void updateDates(Date checkin, Date checkout) {
 		this.setCheckin(checkin);
 		this.setCheckout(checkout);
+	}
+
+	@Override
+	public String toString() {
+		return "Room"
+				+ roomNumber
+				+ ", check-in: "
+				+ sdf.format(checkin)
+				+ ", check-out: "
+				+ sdf.format(checkout)
+				+ ","
+				+ duration()
+				+ "nigths"
+				;
 	}
 	
 	
