@@ -46,14 +46,23 @@ public class Reservation {
 		return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS); // converte diff em dias usando a classe TimeUnit
 	}
 	
-	public void updateDates(Date checkin, Date checkout) {
+	public String updateDates(Date checkin, Date checkout) {
+		Date now = new Date();
+		if(checkin.before(now) || checkout.before(now)) {
+			return "Reservation dates for updates must be future dates";
+		}
+		if(!checkout.after(checkin)) {//testa se o checkout vem depois do checkin
+			
+			return "Error in reservation: Check-out date must be after check-in date";
+		}
 		this.setCheckin(checkin);
 		this.setCheckout(checkout);
+		return null;
 	}
 
 	@Override
 	public String toString() {
-		return "Room"
+		return "Room "
 				+ roomNumber
 				+ ", check-in: "
 				+ sdf.format(checkin)
